@@ -23,7 +23,7 @@ docker push asia.gcr.io/zeus-cloud-329503/zeus-sftp:v1
 ```
 
 
-### run only 1 time for fix permission folder
+### Run only 1 time for fix permission folder
 ```
 kubectl exec -it -n production-external production-sftp-zeus-77d6c7d9dd-5l442 -- /bin/bash
 
@@ -31,7 +31,7 @@ cd /home/sftp_zeus/
 chown sftp_zeus:sftp_zeus -R data/
 ```
 
-### test connect and make sure config sftp correct
+### Test connect and make sure config sftp correct
 ```
 sftp -P 4848 sftp_zeus@34.124.237.19
 
@@ -49,7 +49,7 @@ Couldn't stat remote file: No such file or directory
 ```
 
 
-### convert private key to .ppk di local laptop for access sftp server with sftp client (filezila)
+### Convert private key to .ppk di local laptop for access sftp server with sftp client (filezila)
 ```
 sudo apt-get install putty-tools
 ```
