@@ -1,0 +1,78 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: production-sftp-zeus
+  namespace: production-external
+  labels:
+    app: production-sftp-zeus
+spec:
+  replicas: 1
+  revisionHistoryLimit: 4
+  minReadySeconds: 6
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: production-sftp-zeus
+  template:
+    metadata:
+      labels:
+        environment: production-external
+        app: production-sftp-zeus
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/production-sftp-zeus: runtime/default
+    spec:
+      #nodeSelector:
+      #  cloud.google.com/gke-nodepool: pool-sftp
+      containers:
+        - name: production-sftp-zeus
+          image: asia.gcr.io/zeus-cloud-329503/zeus-sftp:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4848
+          resources:
+            requests:
+               cpu: "100m"
+               memory: "100Mi"
+            limits:
+               cpu: "600m"
+               memory: "800Mi"
+          readinessProbe:
+            tcpSocket:
+              port: 4848
+            initialDelaySeconds: 10
+            periodSeconds: 6
+          livenessProbe:
+            tcpSocket:
+              port: 4848
+            initialDelaySeconds: 10
+            periodSeconds: 6
+          securityContext:
+            capabilities:
+              add: ["SYS_ADMIN"]            
+          volumeMounts:
+            - name: production-sftp-zeus
+              mountPath: /home/sftp_zeus/data
+      volumes:
+        - name: production-sftp-zeus
+          persistentVolumeClaim:
+            claimName: production-sftp-zeus
+---
+# service
+apiVersion: v1
+kind: Service
+metadata:
+  name: production-sftp-zeus
+  namespace: production-external
+  labels:
+    app: production-sftp-zeus
+spec:
+  selector:
+    app: production-sftp-zeus
+  ports:
+  - port: 4848 # port ke luar
+    protocol: TCP
+    targetPort: 4848
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  loadBalancerIP: 34.124.237.19

@@ -1,0 +1,14 @@
+## config pvc
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: production-sftp-zeus
+  namespace: production-external
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard-rwo
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 10Gi

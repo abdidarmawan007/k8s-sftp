@@ -1,0 +1,34 @@
+## for gke dataplane v2
+## sftp server only allow incoming and outgoing to spesific ip public like bank server or third party service
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: production-network-policy-sftp
+  namespace: production-external
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  ingress: # allow ingress inbound
+    - from:
+        - ipBlock:
+            cidr: 117.157.122.204/32 # allow access sftp from specific ip range
+      ports:
+        - port: 4848
+  egress: # allow egress outbound
+    - to:
+        - namespaceSelector: {}
+    - to:
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - port: 53
+          protocol: UDP
+    - to:
+        - ipBlock:
+            cidr: 117.157.122.204/32 # allow sftp upload file via cron to specific ip range
+      ports:
+        - port: 4848
+        - port: 22
