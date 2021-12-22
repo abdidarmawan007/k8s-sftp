@@ -59,7 +59,7 @@ sudo apt-get install putty-tools
 git clone https://github.com/arthepsy/ssh-audit.git
 cd ssh-audit/
 ```
-# edit port
+#### Edit port
 ```
 nano ssh-audit.py
 oport, port = '4848', 4848
