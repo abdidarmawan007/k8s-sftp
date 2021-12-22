@@ -47,6 +47,12 @@ crontab-sftp.txt    data
 sftp> cd /etc
 Couldn't stat remote file: No such file or directory
 ```
+#### Test ssh
+```
+ssh -p 4848 sftp_zeus@34.124.237.19
+This service allows sftp connection only
+connection to 34.124.237.19 closed.
+```
 
 
 ### Convert private key to .ppk di local laptop for access sftp server with sftp client (filezila)
