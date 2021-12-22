@@ -1,0 +1,55 @@
+## Protocol 2 more secure and use port 4848
+Protocol 2
+Port 4848
+DSAAuthentication yes
+RSAAuthentication yes
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+
+## Improvement encryption
+KexAlgorithms curve25519-sha256@libssh.org
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
+
+## Only 8 concurrent connections, 10 max authentication attempts
+MaxStartups 8
+MaxAuthTries 10
+
+## Disable password and make sftp use public key only
+AuthenticationMethods publickey
+
+## Faster connection with disable dns
+UseDNS no
+
+## Disable config which is not necessary 
+PermitRootLogin no
+ChallengeResponseAuthentication no
+UsePAM no
+PrintMotd no
+X11Forwarding no
+AllowTcpForwarding no
+AllowAgentForwarding no
+PermitTunnel no
+KerberosAuthentication no
+GSSAPIAuthentication no
+DebianBanner no
+PermitUserEnvironment no
+
+## Allow access to selected users/group only
+AllowUsers sftp_zeus
+AllowGroups sftp
+
+## Config chroot, restricting access to one directory
+Subsystem sftp internal-sftp
+Match group sftp
+    ChrootDirectory /home/sftp_zeus/
+    ForceCommand internal-sftp
+    X11Forwarding no
+    AllowTcpForwarding no
+    AllowAgentForwarding no
+    PermitTunnel no
+## Enable and force login with public key only
+    PubkeyAuthentication yes
+    AuthorizedKeysFile .ssh/authorized_keys
+    PasswordAuthentication no

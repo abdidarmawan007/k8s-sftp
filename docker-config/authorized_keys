@@ -1,0 +1,6 @@
+### for add client public key for access for sftp seerver
+## abdi-devops
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAQCxxxxxxxxxx
+## jejen-bank
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAxxxxxxxxxx
+
