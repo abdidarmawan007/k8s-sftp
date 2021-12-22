@@ -65,5 +65,5 @@ nano ssh-audit.py
 oport, port = '4848', 4848
 ```
 ```
-python ssh-audit.py 35.187.234.60
+python ssh-audit.py 34.124.237.19
 ```
