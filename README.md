@@ -55,6 +55,14 @@ This service allows sftp connection only
 connection to 34.124.237.19 closed.
 ```
 
+### Optional restrict delete or remove or rename permission
+edit sshd_config
+```
+subsystem sftp internal-sftp -P remove,rmdir,rename,posix-rename
+
+ForceCommand internal-sftp  -P remove,rmdir,rename,posix-rename
+```
+
 
 ### Convert private key to .ppk di local laptop for access sftp server with sftp client (filezila)
 ```
