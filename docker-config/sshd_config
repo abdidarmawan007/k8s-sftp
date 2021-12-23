@@ -42,9 +42,11 @@ AllowGroups sftp
 
 ## Config chroot, restricting access to one directory
 Subsystem sftp internal-sftp
+#Subsystem sftp internal-sftp -P remove,rmdir,rename,posix-rename #for restrict delete or remove or rename permission
 Match group sftp
     ChrootDirectory /home/sftp_zeus/
     ForceCommand internal-sftp
+    #ForceCommand internal-sftp  -P remove,rmdir,rename,posix-rename #for restrict delete or remove or rename permission
     X11Forwarding no
     AllowTcpForwarding no
     AllowAgentForwarding no
