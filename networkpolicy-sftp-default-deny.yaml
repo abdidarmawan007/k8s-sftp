@@ -1,5 +1,5 @@
 ## for gke dataplane v2
-## sftp server only allow incoming and outgoing to spesific ip public like bank server or third party service
+## sftp server only allow incoming and outgoing to spesific ip public like bank server or third party service for example IP 117.157.122.204
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
