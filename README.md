@@ -1,6 +1,7 @@
 # Run SFTP server in kubernetes
 - GKE 1.21.x Dataplane V2
 - Connection incoming and outgoing to pods sftp only allow to spesific IP public via NetworkPolicy
+- Bank or oldschool system government still use SFTP not oject storage like GCS or S3 via API
 
 ### Create IP Public Region for Loadbalancer SFTP
 ```
